@@ -39,7 +39,11 @@ def fetch_dampt():
             # no one should do these courses :)
             if obj.find_all("td")[0].contents[0] in ["A10","A11"]:
                 continue
-            sheets += fetch_sheets_for_dampt_course(obj.find_all("td")[0].contents[0],obj.find_all("td")[1].contents[0])
+            crs=obj.find_all("td")[1].contents[0].strip()
+            i=1
+            if crs in [s[1] for s in sheets]:
+                crs=crs+" II"
+            sheets += fetch_sheets_for_dampt_course(obj.find_all("td")[0].contents[0],crs)
             # courses.append([x.contents[0] for x in obj.find_all("td")])
     # parsed_courses_list = parsed_html.find_all("div",{"class":"tex2jax"})[0]
 
