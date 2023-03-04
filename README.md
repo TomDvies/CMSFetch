@@ -1,2 +1,2 @@
 # CMSFetch
-Fetch all cambridge maths example sheets from dpmms and dampt.
+Fetch all cambridge maths example sheets and past papers from dpmms and dampt.
