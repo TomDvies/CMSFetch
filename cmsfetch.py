@@ -3,7 +3,7 @@ from fetch_dpmms import fetch_dpmms
 from fetch_dampt import fetch_dampt
 import os, requests, shutil
 from fetch_papers import fetch_papers
-
+from fetch_gareth import fetch_gareth_papers
 
 parser = argparse.ArgumentParser(description='Fetch cambridge maths example sheets.')
 parser.add_argument('outdir', metavar='outdir', type=str, nargs=1,
@@ -16,6 +16,8 @@ print("Indexing dampt...")
 sheets += fetch_dampt()
 print("Indexing past papers...")
 papers = fetch_papers()
+print("Indexing gareth's collated papers...")
+gareth_papers = fetch_gareth_papers()
 
 for sheet in sheets:
     print(f"Fetching {args.outdir[0]}/sheets/{sheet[1]}/{sheet[1]}-{sheet[2]}.pdf")
@@ -47,3 +49,15 @@ for paper in papers:
         with requests.get(paper[0], stream=True) as r:
             with open(filepath, 'wb') as f:
                 shutil.copyfileobj(r.raw, f)
+
+
+for paper in gareth_papers:
+    outpath = f"{args.outdir[0]}/pastpapers/collated/{paper[2]}"
+    name = f"{paper[1]}.pdf"
+    print(f"Fetching {outpath}/{name}")
+    if not os.path.exists(outpath):
+        os.makedirs(outpath)
+    filepath = outpath+"/"+name
+    with requests.get(paper[0], stream=True) as r:
+        with open(filepath, 'wb') as f:
+            shutil.copyfileobj(r.raw, f)
