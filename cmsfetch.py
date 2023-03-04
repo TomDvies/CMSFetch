@@ -31,7 +31,7 @@ for paper in papers:
     outpath = f"{args.outdir[0]}/pastpapers/{paper[1]}/{paper[2]}"
     if paper[3] != "All questions":
         name = f"{paper[1]}-{paper[2]}-paper-{paper[3]}.pdf"
-        print(f"Fetching {name}")
+        print(f"Fetching {outpath}/{name}")
         if not os.path.exists(outpath):
             os.makedirs(outpath)
         filepath = outpath+"/"+name
